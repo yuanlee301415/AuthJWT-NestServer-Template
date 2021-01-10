@@ -1,0 +1,747 @@
+{
+	"info": {
+		"_postman_id": "2d09fe9d-1c86-4e95-8683-64626161406c",
+		"name": "AuthJWT_Nest-Server_Template",
+		"description": "AuthJWT_Nest-Server_Template",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "v1",
+			"item": [
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "register",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('newUserId', function() {\r",
+											"    const newUser = pm.response.json().data\r",
+											"    pm.collectionVariables.set('newUserId', newUser._id)\r",
+											"    console.log('get>newUserId:', pm.collectionVariables.get('newUserId'))\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "{{$randomLastName}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{$randomPassword}}",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "posts",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/v1/user/register",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user/:id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/user/{{newUserId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"{{newUserId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/user?page=1&size=20",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "20"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user/:id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/user/{{newUserId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"{{newUserId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/user/{{newUserId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"{{newUserId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "post",
+					"item": [
+						{
+							"name": "post",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('newPostId', function() {\r",
+											"    const newPost = pm.response.json().data\r",
+											"    pm.collectionVariables.set('newPostId', newPost._id)\r",
+											"    console.log('get>newPostId:', pm.collectionVariables.get('newPostId'))\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "PostMan_title_{{$guid}}",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "{{$randomLoremSentence}}",
+											"type": "text"
+										},
+										{
+											"key": "content",
+											"value": "{{$randomLoremSentences}}",
+											"type": "text"
+										},
+										{
+											"key": "keywords",
+											"value": "{{$randomWord}}",
+											"type": "text"
+										},
+										{
+											"key": "keywords",
+											"value": "{{$randomWord}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/v1/post",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"post"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post/:id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "PostMan_title_{{$guid}}",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "{{$randomLoremSentence}}",
+											"type": "text"
+										},
+										{
+											"key": "content",
+											"value": "{{$randomLoremSentences}}",
+											"type": "text"
+										},
+										{
+											"key": "keywords",
+											"value": "{{$randomWord}}",
+											"type": "text"
+										},
+										{
+											"key": "keywords",
+											"value": "{{$randomWord}}",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "aaaaa",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/v1/post/{{newPostId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"post",
+										"{{newPostId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post/:id/star",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/v1/post/{{newPostId}}/star",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"post",
+										"{{newPostId}}",
+										"star"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post/:id/unstar",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/v1/post/{{newPostId}}/unstar",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"post",
+										"{{newPostId}}",
+										"unstar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post/:id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/post/{{newPostId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"post",
+										"{{newPostId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post/:id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/post/{{newPostId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"post",
+										"{{newPostId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post/user/:userid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/post/user/{{authUserId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"post",
+										"user",
+										"{{authUserId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/post?page=1&size=2",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"post"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "comment",
+					"item": [
+						{
+							"name": "comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('newCommentId', function() {\r",
+											"    const newComment = pm.response.json().data\r",
+											"    pm.collectionVariables.set('newCommentId', newComment._id)\r",
+											"    console.log('get>newCommentId:', pm.collectionVariables.get('newCommentId'))\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "content",
+											"value": "{{$randomLoremSentences}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/v1/comment/{{newPostId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"comment",
+										"{{newPostId}}"
+									]
+								},
+								"description": "create"
+							},
+							"response": []
+						},
+						{
+							"name": "comment/:postId",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/v1/comment/{{newPostId}}?page=1&size=10",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"comment",
+										"{{newPostId}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								},
+								"description": "create"
+							},
+							"response": []
+						},
+						{
+							"name": "comment/:id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/v1/comment/{{newCommentId}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"comment",
+										"{{newCommentId}}"
+									]
+								},
+								"description": "create"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "root",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('authUserId', function() {\r",
+									"    const authUserId = pm.response.json().data\r",
+									"    //pm.globals.set('authUserId', authUserId._id)\r",
+									"    pm.collectionVariables.set('authUserId', authUserId._id)\r",
+									"    console.log('get>authUserId:', pm.collectionVariables.get('authUserId'))\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/authUser",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"authUser"
+							]
+						},
+						"description": "authUser"
+					},
+					"response": []
+				},
+				{
+					"name": "auth/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('token', function() {\r",
+									"    const token = pm.response.json().data.access_token\r",
+									"    pm.collectionVariables.set('token', token)\r",
+									"    console.log('get>token:', pm.collectionVariables.get('token'))\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "comment",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/v1/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:10100/api"
+		},
+		{
+			"key": "authUserId",
+			"value": ""
+		},
+		{
+			"key": "newUserId",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "newPostId",
+			"value": ""
+		},
+		{
+			"key": "newCommentId",
+			"value": ""
+		}
+	]
+}
