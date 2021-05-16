@@ -16,23 +16,24 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const newUser = new User(createUserDto);
     const ex = await this.findByUsername(newUser.username);
-    console.log("user.service>create>ex:", ex);
+    console.log("UsersService>create>ex:", ex);
     if (ex) {
       throw new BadRequestException("用户已存在！");
       return;
     }
 
-    return await this.userModel.create({
+    const ret = await this.userModel.create({
       ...newUser,
       password: this.cryptoUtil.encryptPassword(createUserDto.password),
       createdAt: new Date(),
     });
+    return this.findById(ret._id)
   }
 
   async findAll({ page, size }: PageQuery): Promise<[User[], number]> {
-    console.log("user.service>findAll>query:", { page, size });
+    console.log("UsersService>findAll>query:", { page, size });
     const users = await this.userModel
-      .find()
+      .find(null, {password: 0})
       .sort({ createdAt: -1 })
       .skip((page - 1) * size)
       .limit(size);
@@ -41,12 +42,12 @@ export class UsersService {
   }
 
   async findById(id: string): Promise<User> {
-    console.log("user.service>findById>id:\n", id);
-    return this.userModel.findById(id);
+    console.log("UsersService>findById>id:\n", id);
+    return this.userModel.findById(id, {password: 0});
   }
 
   async findByUsername(username: string): Promise<User> {
-    console.log("user.service>findByUsername>username:", username);
+    console.log("UsersService>findByUsername>username:", username);
     return this.userModel.findOne({ username });
   }
 

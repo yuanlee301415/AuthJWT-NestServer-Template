@@ -7,6 +7,7 @@ import {AuthService} from "../auth/auth.service";
 import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 import {AuthUser} from "../common/interfaces/AuthUser";
 import {CreateUserDto} from "../users/dto/create-user.dto";
+import { User } from "../users/schemas/user.schema";
 
 
 @Controller('rights')
@@ -18,15 +19,20 @@ export class RightsController {
   }
 
   @Post("register")
-  async register(@Body() createUserDto: CreateUserDto): Promise<Resp<null>> {
+  async register(@Body() createUserDto: CreateUserDto): Promise<Resp<User>> {
     console.log(
       "RightsController>register>user>createUserDto:\n",
       createUserDto
     );
-    await this.rightsService.register(createUserDto)
+    const data = await this.rightsService.register(createUserDto)
+    console.log(
+      "RightsController>register>data:\n",
+      data
+    );
+
     return {
       code: 0,
-      data: null
+      data
     };
   }
 
