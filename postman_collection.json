@@ -13,67 +13,6 @@
 					"name": "user",
 					"item": [
 						{
-							"name": "register",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('newUserId', function() {\r",
-											"    const newUser = pm.response.json().data\r",
-											"    pm.collectionVariables.set('newUserId', newUser._id)\r",
-											"    console.log('get>newUserId:', pm.collectionVariables.get('newUserId'))\r",
-											"})"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "username",
-											"value": "{{$randomLastName}}",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "{{$randomPassword}}",
-											"type": "text"
-										},
-										{
-											"key": "username",
-											"value": "posts",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "password",
-											"value": "123456",
-											"type": "text",
-											"disabled": true
-										}
-									]
-								},
-								"url": {
-									"raw": "{{url}}/v1/user/register",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"v1",
-										"user",
-										"register"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "user/:id",
 							"request": {
 								"method": "GET",
@@ -571,6 +510,169 @@
 					]
 				},
 				{
+					"name": "rights",
+					"item": [
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('token', function() {\r",
+											"    const token = pm.response.json().data.access_token\r",
+											"    pm.collectionVariables.set('token', token)\r",
+											"    console.log('get>token:', pm.collectionVariables.get('token'))\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "comment",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/v1/rights/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"rights",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "authUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('authUserId', function() {\r",
+											"    const authUserId = pm.response.json().data\r",
+											"    pm.collectionVariables.set('authUserId', authUserId._id)\r",
+											"    console.log('authUserId:', pm.collectionVariables.get('authUserId'))\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/rights/authUser",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"rights",
+										"authUser"
+									]
+								},
+								"description": "authUser"
+							},
+							"response": []
+						},
+						{
+							"name": "register",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('newUserId', function() {\r",
+											"    const newUser = pm.response.json().data\r",
+											"    pm.collectionVariables.set('newUserId', newUser._id)\r",
+											"    console.log('newUserId:', pm.collectionVariables.get('newUserId'))\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "{{$randomLastName}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{$randomPassword}}",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/v1/rights/register",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"rights",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "rights"
+				},
+				{
 					"name": "root",
 					"request": {
 						"method": "GET",
@@ -582,99 +684,6 @@
 							],
 							"path": [
 								"v1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "authUser",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('authUserId', function() {\r",
-									"    const authUserId = pm.response.json().data\r",
-									"    //pm.globals.set('authUserId', authUserId._id)\r",
-									"    pm.collectionVariables.set('authUserId', authUserId._id)\r",
-									"    console.log('get>authUserId:', pm.collectionVariables.get('authUserId'))\r",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/v1/authUser",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"v1",
-								"authUser"
-							]
-						},
-						"description": "authUser"
-					},
-					"response": []
-				},
-				{
-					"name": "auth/login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('token', function() {\r",
-									"    const token = pm.response.json().data.access_token\r",
-									"    pm.collectionVariables.set('token', token)\r",
-									"    console.log('get>token:', pm.collectionVariables.get('token'))\r",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "username",
-									"value": "admin",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "123456",
-									"type": "text"
-								},
-								{
-									"key": "username",
-									"value": "comment",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "{{url}}/v1/auth/login",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"v1",
-								"auth",
-								"login"
 							]
 						}
 					},
