@@ -16,6 +16,7 @@ export class AppService implements OnModuleInit {
       admin = await this.userService.create({
         username: "admin",
         password: "123456",
+        roles: ['admin']
       });
       console.warn(
         "AppService>onModuleInit>preset>admin:\n",

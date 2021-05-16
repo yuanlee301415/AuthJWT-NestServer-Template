@@ -19,6 +19,12 @@ export class User {
   password: string;
 
   @Prop({
+    type: Array,
+    required: true,
+  })
+  roles: string[];
+
+  @Prop({
     type: Object,
   })
   createdUser?: AuthUser;
@@ -41,7 +47,7 @@ export class User {
   _id?: string;
 
   constructor(user: CreateUserDto) {
-    const RE = /^[a-z][a-z0-9]{4,10}$/i;
+    const RE = /^[a-z][a-z0-9_\-]{4,10}$/i;
     if (!RE.test(user.username)) {
       throw new BadRequestException(
         `[User.username failed]:: 用户名只支持: 字母开头，5-10字母、数字，不区分大小写`
@@ -50,6 +56,7 @@ export class User {
 
     this.username = user.username;
     this.password = user.password;
+    this.roles = Array.prototype.concat(user.roles);
   }
 }
 

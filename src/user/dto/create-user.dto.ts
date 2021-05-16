@@ -8,4 +8,6 @@ export class CreateUserDto {
   @MinLength(6)
   @MaxLength(20)
   readonly password: string;
+
+  readonly roles: string[];
 }
