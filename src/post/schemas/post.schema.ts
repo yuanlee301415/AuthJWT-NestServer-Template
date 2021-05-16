@@ -1,9 +1,9 @@
-import { BadRequestException } from "@nestjs/common";
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
-import { CreatePostDto } from "../dto/create-post.dto";
-import { UpdatePostDto } from "../dto/update-post.dto";
-import { AuthUser } from "../../common/interfaces/AuthUser";
+import {BadRequestException} from "@nestjs/common";
+import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
+import {Document} from "mongoose";
+import {CreatePostDto} from "../dto/create-post.dto";
+import {UpdatePostDto} from "../dto/update-post.dto";
+import {AuthUser} from "../../common/interfaces/AuthUser";
 
 @Schema()
 export class Post {

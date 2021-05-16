@@ -1,8 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const pkg = require("../package.json");
-import { Inject, Injectable, OnModuleInit } from "@nestjs/common";
-import { UsersService } from "./users/users.service";
-import { PostService } from "./post/post.service";
-import { CryptoUtil } from "./common/utils/crypto.util";
+import {Inject, Injectable, OnModuleInit} from "@nestjs/common";
+import {UsersService} from "./users/users.service";
+import {PostService} from "./post/post.service";
+import {CryptoUtil} from "./common/utils/crypto.util";
 
 @Injectable()
 export class AppService implements OnModuleInit {
@@ -22,10 +23,10 @@ export class AppService implements OnModuleInit {
       );
     }
 
-    const [, count] = await this.postService.findAll({ page: 1, size: 1 });
+    const [, count] = await this.postService.findAll({page: 1, size: 1});
     if (!count) {
       const post = await this.postService.create(
-        { _id: admin._id, username: admin.username },
+        {_id: admin._id, username: admin.username},
         {
           title: "Preset-post-title",
           desc: "Preset-post-desc",
@@ -48,7 +49,8 @@ export class AppService implements OnModuleInit {
     @Inject(CryptoUtil) private readonly cryptoUtil: CryptoUtil,
     private readonly usersService: UsersService,
     private readonly postService: PostService
-  ) {}
+  ) {
+  }
 
   getHello(): string {
     return `Hello [${pkg.name}]! - ${new Date()}`;

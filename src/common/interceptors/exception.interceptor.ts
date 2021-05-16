@@ -6,8 +6,8 @@ import {
   CallHandler,
 } from "@nestjs/common";
 
-import { Observable, throwError, TimeoutError } from "rxjs";
-import { catchError, timeout } from "rxjs/operators";
+import {Observable, throwError, TimeoutError} from "rxjs";
+import {catchError, timeout} from "rxjs/operators";
 
 @Injectable()
 export class ErrorsInterceptor implements NestInterceptor {

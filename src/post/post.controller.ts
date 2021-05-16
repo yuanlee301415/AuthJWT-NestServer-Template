@@ -10,17 +10,18 @@ import {
   Req,
   UseGuards,
 } from "@nestjs/common";
-import { PostService } from "./post.service";
-import { CreatePostDto } from "./dto/create-post.dto";
-import { UpdatePostDto } from "./dto/update-post.dto";
-import { Post as POST } from "./schemas/post.schema";
-import { TransformIntQuery } from "../common/transform/query.transform";
-import { Resp } from "../common/interfaces/Resp";
-import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import {PostService} from "./post.service";
+import {CreatePostDto} from "./dto/create-post.dto";
+import {UpdatePostDto} from "./dto/update-post.dto";
+import {Post as POST} from "./schemas/post.schema";
+import {TransformIntQuery} from "../common/transform/query.transform";
+import {Resp} from "../common/interfaces/Resp";
+import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 
 @Controller("post")
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(private readonly postService: PostService) {
+  }
 
   @UseGuards(JwtAuthGuard)
   @Post()
@@ -28,8 +29,8 @@ export class PostController {
     @Req() req,
     @Body() createPostDto: CreatePostDto
   ): Promise<Resp<POST>> {
-    // console.log("post.controller>create>post>req.user:\n", req.user);
-    // console.log("post.controller>create>post>createPostDto:\n", createPostDto);
+    // console.log("PostController>create>post>req.user:\n", req.user);
+    // console.log("PostController>create>post>createPostDto:\n", createPostDto);
     const createdPost = await this.postService.create(req.user, createPostDto);
     return {
       code: 0,
@@ -39,7 +40,7 @@ export class PostController {
 
   @Get()
   async findAll(@Query(new TransformIntQuery()) query): Promise<Resp<POST[]>> {
-    // console.log("post.controller>findAll>query:\n", query);
+    // console.log("PostController>findAll>query:\n", query);
     const [posts, count] = await this.postService.findAll(query);
     return {
       code: 0,
@@ -66,7 +67,7 @@ export class PostController {
     @Param("id") id: string,
     @Body() updatePostDto: UpdatePostDto
   ): Promise<Resp<POST>> {
-    console.log("post.controller>updateOne>updatePostDto:\n", updatePostDto);
+    console.log("PostController>updateOne>updatePostDto:\n", updatePostDto);
     const updatedPost = await this.postService.updateOne(
       req.user,
       id,
@@ -113,7 +114,7 @@ export class PostController {
     @Param("userId") userId: string,
     @Query(new TransformIntQuery()) query
   ): Promise<Resp<POST[]>> {
-    console.log("post.controller>findByUserId>query:\n", query);
+    console.log("PostController>findByUserId>query:\n", query);
     const [posts, count] = await this.postService.findByUserId(userId, query);
     return {
       code: 0,

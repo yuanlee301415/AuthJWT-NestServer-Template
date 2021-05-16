@@ -1,19 +1,18 @@
-import { Injectable } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
-import { CreatePostDto } from "./dto/create-post.dto";
-import { UpdatePostDto } from "./dto/update-post.dto";
-import { Post, PostDocument } from "./schemas/post.schema";
-import { PageQuery } from "../common/interfaces/PageQuery";
-import { UsersService } from "../users/users.service";
-import { AuthUser } from "../common/interfaces/AuthUser";
+import {Injectable} from "@nestjs/common";
+import {InjectModel} from "@nestjs/mongoose";
+import {Model} from "mongoose";
+import {CreatePostDto} from "./dto/create-post.dto";
+import {UpdatePostDto} from "./dto/update-post.dto";
+import {Post, PostDocument} from "./schemas/post.schema";
+import {PageQuery} from "../common/interfaces/PageQuery";
+import {AuthUser} from "../common/interfaces/AuthUser";
 
 @Injectable()
 export class PostService {
   constructor(
-    @InjectModel(Post.name) private readonly postModel: Model<PostDocument>,
-    private readonly usersService: UsersService
-  ) {}
+    @InjectModel(Post.name) private readonly postModel: Model<PostDocument>
+  ) {
+  }
 
   async create(
     authUser: AuthUser,
@@ -28,11 +27,11 @@ export class PostService {
     return await createdPost.save();
   }
 
-  async findAll({ page, size }: PageQuery): Promise<[Post[], number]> {
+  async findAll({page, size}: PageQuery): Promise<[Post[], number]> {
     // console.log('PostService>findAll>query:', arguments);
     const posts = await this.postModel
       .find()
-      .sort({ createdAt: -1 })
+      .sort({createdAt: -1})
       .skip((page - 1) * size)
       .limit(size);
     const count = await this.postModel.countDocuments();
@@ -42,12 +41,12 @@ export class PostService {
 
   async findByUserId(
     userId: string,
-    { page, size }: PageQuery
+    {page, size}: PageQuery
   ): Promise<[Post[], number]> {
     console.log("PostService>findByUserId>userId:", userId);
     const ret = await this.postModel
-      .find({ "createdUser._id": userId })
-      .sort({ createdAt: -1 })
+      .find({"createdUser._id": userId})
+      .sort({createdAt: -1})
       .skip((page - 1) * size)
       .limit(size);
     const count = await this.postModel.countDocuments({
@@ -75,8 +74,8 @@ export class PostService {
     console.log("PostService>>update>newPost:", newPost);
     const ret = await this.postModel.findByIdAndUpdate(
       id,
-      { ...newPost, updatedUser: authUser, updatedAt: new Date() },
-      { new: true, useFindAndModify: false }
+      {...newPost, updatedUser: authUser, updatedAt: new Date()},
+      {new: true, useFindAndModify: false}
     );
     console.log("PostService>update>ret:", ret);
     return ret;
@@ -92,8 +91,8 @@ export class PostService {
 
     const ret = await this.postModel.findByIdAndUpdate(
       id,
-      { vote, updatedUser: authUser, updatedAt: new Date() },
-      { new: true, useFindAndModify: false }
+      {vote, updatedUser: authUser, updatedAt: new Date()},
+      {new: true, useFindAndModify: false}
     );
     return ret;
   }
@@ -110,8 +109,8 @@ export class PostService {
 
     const ret = await this.postModel.findByIdAndUpdate(
       id,
-      { vote, updatedUser: authUser, updatedAt: new Date() },
-      { new: true, useFindAndModify: false }
+      {vote, updatedUser: authUser, updatedAt: new Date()},
+      {new: true, useFindAndModify: false}
     );
     return ret;
   }

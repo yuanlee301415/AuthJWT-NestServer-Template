@@ -1,4 +1,4 @@
-import { MinLength, MaxLength, IsMongoId } from "class-validator";
+import {MinLength, MaxLength} from "class-validator";
 
 export class CreateUserDto {
   @MinLength(5)

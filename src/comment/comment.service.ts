@@ -1,17 +1,18 @@
-import { Injectable } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
-import { Comment, CommentDocument } from "./schemas/comment.schema";
-import { CreateCommentDto } from "./dto/create-comment.dto";
-import { PageQuery } from "../common/interfaces/PageQuery";
-import { AuthUser } from "../common/interfaces/AuthUser";
+import {Injectable} from "@nestjs/common";
+import {InjectModel} from "@nestjs/mongoose";
+import {Model} from "mongoose";
+import {Comment, CommentDocument} from "./schemas/comment.schema";
+import {CreateCommentDto} from "./dto/create-comment.dto";
+import {PageQuery} from "../common/interfaces/PageQuery";
+import {AuthUser} from "../common/interfaces/AuthUser";
 
 @Injectable()
 export class CommentService {
   constructor(
     @InjectModel(Comment.name)
     private readonly commentModel: Model<CommentDocument>
-  ) {}
+  ) {
+  }
 
   async create(
     postId: string,
@@ -29,16 +30,16 @@ export class CommentService {
   }
 
   async getCommentsByPostId(
-    { page, size }: PageQuery,
+    {page, size}: PageQuery,
     postId: string
   ): Promise<[Comment[], number]> {
     const comments = await this.commentModel
-      .find({ postId })
-      .sort({ createdAt: -1 })
+      .find({postId})
+      .sort({createdAt: -1})
       .skip((page - 1) * size)
       .limit(size);
     // console.log('getCommentsByPostId>comments:', comments)
-    const count = await this.commentModel.countDocuments({ postId });
+    const count = await this.commentModel.countDocuments({postId});
     // console.log('getCommentsByPostId>count:', count)
     return [comments, count];
   }

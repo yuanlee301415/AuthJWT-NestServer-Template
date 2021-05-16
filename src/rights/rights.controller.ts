@@ -7,7 +7,7 @@ import {AuthService} from "../auth/auth.service";
 import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 import {AuthUser} from "../common/interfaces/AuthUser";
 import {CreateUserDto} from "../users/dto/create-user.dto";
-import { User } from "../users/schemas/user.schema";
+import {User} from "../users/schemas/user.schema";
 
 
 @Controller('rights')

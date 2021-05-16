@@ -8,16 +8,17 @@ import {
   Delete,
 } from "@nestjs/common";
 
-import { UsersService } from "./users.service";
-import { User } from "./schemas/user.schema";
-import { TransformIntQuery } from "../common/transform/query.transform";
-import { Resp } from "../common/interfaces/Resp";
-import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import {UsersService} from "./users.service";
+import {User} from "./schemas/user.schema";
+import {TransformIntQuery} from "../common/transform/query.transform";
+import {Resp} from "../common/interfaces/Resp";
+import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 
 // Todo: user -> users
 @Controller("user")
 export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+  constructor(private readonly userService: UsersService) {
+  }
 
   @Get()
   async findAll(@Query(new TransformIntQuery()) query): Promise<Resp<User[]>> {

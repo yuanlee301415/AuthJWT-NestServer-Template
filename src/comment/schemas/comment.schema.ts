@@ -1,8 +1,8 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { BadRequestException } from "@nestjs/common";
-import { Document } from "mongoose";
-import { CreateCommentDto } from "../dto/create-comment.dto";
-import { AuthUser } from "../../common/interfaces/AuthUser";
+import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
+import {BadRequestException} from "@nestjs/common";
+import {Document} from "mongoose";
+import {CreateCommentDto} from "../dto/create-comment.dto";
+import {AuthUser} from "../../common/interfaces/AuthUser";
 
 @Schema()
 export class Comment {

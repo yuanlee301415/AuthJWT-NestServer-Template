@@ -17,6 +17,7 @@ export class TransformIntQuery implements PipeTransform {
     page: [1, Infinity],
     size: [1, 100],
   };
+
   constructor(public fields: string[] = ["page", "size"]) {
     // console.log('TransformIntQuery>fields:\n', this.fields);
   }

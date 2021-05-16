@@ -1,17 +1,18 @@
-import { Injectable, Inject, BadRequestException } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { User, UserDocument } from "./schemas/user.schema";
-import { CryptoUtil } from "../common/utils/crypto.util";
-import { PageQuery } from "../common/interfaces/PageQuery";
+import {Injectable, Inject, BadRequestException} from "@nestjs/common";
+import {InjectModel} from "@nestjs/mongoose";
+import {Model} from "mongoose";
+import {CreateUserDto} from "./dto/create-user.dto";
+import {User, UserDocument} from "./schemas/user.schema";
+import {CryptoUtil} from "../common/utils/crypto.util";
+import {PageQuery} from "../common/interfaces/PageQuery";
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
     @Inject(CryptoUtil) private readonly cryptoUtil: CryptoUtil
-  ) {}
+  ) {
+  }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const newUser = new User(createUserDto);
@@ -30,11 +31,11 @@ export class UsersService {
     return this.findById(ret._id)
   }
 
-  async findAll({ page, size }: PageQuery): Promise<[User[], number]> {
-    console.log("UsersService>findAll>query:", { page, size });
+  async findAll({page, size}: PageQuery): Promise<[User[], number]> {
+    console.log("UsersService>findAll>query:", {page, size});
     const users = await this.userModel
       .find(null, {password: 0})
-      .sort({ createdAt: -1 })
+      .sort({createdAt: -1})
       .skip((page - 1) * size)
       .limit(size);
     const count = await this.userModel.countDocuments();
@@ -48,7 +49,7 @@ export class UsersService {
 
   async findByUsername(username: string): Promise<User> {
     console.log("UsersService>findByUsername>username:", username);
-    return this.userModel.findOne({ username });
+    return this.userModel.findOne({username});
   }
 
   async deleteOne(id: string): Promise<User> {

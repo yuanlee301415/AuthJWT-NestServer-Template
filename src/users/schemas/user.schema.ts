@@ -1,8 +1,8 @@
-import { BadRequestException } from "@nestjs/common";
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
-import { CreateUserDto } from "../dto/create-user.dto";
-import { AuthUser } from "../../common/interfaces/AuthUser";
+import {BadRequestException} from "@nestjs/common";
+import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
+import {Document} from "mongoose";
+import {CreateUserDto} from "../dto/create-user.dto";
+import {AuthUser} from "../../common/interfaces/AuthUser";
 
 @Schema()
 export class User {

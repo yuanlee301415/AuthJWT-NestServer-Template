@@ -9,17 +9,17 @@ import {
   Query,
   Delete,
 } from "@nestjs/common";
-import { CreateCommentDto } from "./dto/create-comment.dto";
-import { CommentService } from "./comment.service";
-import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
-import { TransformIntQuery } from "../common/transform/query.transform";
-import { Resp } from "../common/interfaces/Resp";
-import { Comment } from "./schemas/comment.schema";
-import { Post as POST } from "../post/schemas/post.schema";
+import {CreateCommentDto} from "./dto/create-comment.dto";
+import {CommentService} from "./comment.service";
+import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
+import {TransformIntQuery} from "../common/transform/query.transform";
+import {Resp} from "../common/interfaces/Resp";
+import {Comment} from "./schemas/comment.schema";
 
 @Controller("comment")
 export class CommentController {
-  constructor(private readonly commentService: CommentService) {}
+  constructor(private readonly commentService: CommentService) {
+  }
 
   @UseGuards(JwtAuthGuard)
   @Post(":postId")
