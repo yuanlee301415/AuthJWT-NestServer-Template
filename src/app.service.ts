@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const pkg = require("../package.json");
 import {Inject, Injectable, OnModuleInit} from "@nestjs/common";
-import {UsersService} from "./users/users.service";
+import {UserService} from "./user/user.service";
 import {PostService} from "./post/post.service";
 import {CryptoUtil} from "./common/utils/crypto.util";
 
@@ -11,9 +11,9 @@ export class AppService implements OnModuleInit {
     console.log(
       `\n\n---------------------------------------AppService/onModuleInit::start---------------------------------------`
     );
-    let admin = await this.usersService.findByUsername("admin");
+    let admin = await this.userService.findByUsername("admin");
     if (!admin) {
-      admin = await this.usersService.create({
+      admin = await this.userService.create({
         username: "admin",
         password: "123456",
       });
@@ -47,7 +47,7 @@ export class AppService implements OnModuleInit {
 
   constructor(
     @Inject(CryptoUtil) private readonly cryptoUtil: CryptoUtil,
-    private readonly usersService: UsersService,
+    private readonly userService: UserService,
     private readonly postService: PostService
   ) {
   }

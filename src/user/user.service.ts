@@ -7,7 +7,7 @@ import {CryptoUtil} from "../common/utils/crypto.util";
 import {PageQuery} from "../common/interfaces/PageQuery";
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
     @Inject(CryptoUtil) private readonly cryptoUtil: CryptoUtil
@@ -17,7 +17,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const newUser = new User(createUserDto);
     const ex = await this.findByUsername(newUser.username);
-    console.log("UsersService>create>ex:", ex);
+    console.log("UserService>create>ex:", ex);
     if (ex) {
       throw new BadRequestException("用户已存在！");
       return;
@@ -32,7 +32,7 @@ export class UsersService {
   }
 
   async findAll({page, size}: PageQuery): Promise<[User[], number]> {
-    console.log("UsersService>findAll>query:", {page, size});
+    console.log("UserService>findAll>query:", {page, size});
     const users = await this.userModel
       .find(null, {password: 0})
       .sort({createdAt: -1})
@@ -43,12 +43,12 @@ export class UsersService {
   }
 
   async findById(id: string): Promise<User> {
-    console.log("UsersService>findById>id:\n", id);
+    console.log("UserService>findById>id:\n", id);
     return this.userModel.findById(id, {password: 0});
   }
 
   async findByUsername(username: string): Promise<User> {
-    console.log("UsersService>findByUsername>username:", username);
+    console.log("UserService>findByUsername>username:", username);
     return this.userModel.findOne({username});
   }
 

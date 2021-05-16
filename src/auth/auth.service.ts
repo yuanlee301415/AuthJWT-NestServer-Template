@@ -1,7 +1,7 @@
 import {Injectable, Inject} from "@nestjs/common";
 import {JwtService} from "@nestjs/jwt";
-import {UsersService} from "../users/users.service";
-import {User} from "../users/schemas/user.schema";
+import {UserService} from "../user/user.service";
+import {User} from "../user/schemas/user.schema";
 import {Token} from "../common/interfaces/Token";
 import {CryptoUtil} from "../common/utils/crypto.util";
 import {AuthPayload} from "../common/interfaces/AuthPayload";
@@ -9,7 +9,7 @@ import {AuthPayload} from "../common/interfaces/AuthPayload";
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UsersService,
+    private readonly userService: UserService,
     private readonly jwtService: JwtService,
     @Inject(CryptoUtil) readonly cryptoUtil: CryptoUtil
   ) {
@@ -21,7 +21,7 @@ export class AuthService {
       username,
       password
     );
-    const user = await this.usersService.findByUsername(username);
+    const user = await this.userService.findByUsername(username);
     console.log("AuthService>validateUser>user:", user);
     if (user && this.cryptoUtil.checkPassword(password, user.password)) {
       return user;

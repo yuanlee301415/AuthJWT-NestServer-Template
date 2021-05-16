@@ -6,7 +6,7 @@ import {LoggingInterceptor} from "./common/interceptors/logger.interceptor";
 import {AppController} from "./app.controller";
 import {AppService} from "./app.service";
 import {AuthModule} from "./auth/auth.module";
-import {UsersModule} from "./users/users.module";
+import { UserModule} from "./user/user.module";
 import {PostModule} from "./post/post.module";
 import {CommonModule} from "./common/common.module";
 import {CommentModule} from "./comment/comment.module";
@@ -24,7 +24,7 @@ import {RightsModule} from './rights/rights.module';
     }),
     CommonModule,
     AuthModule,
-    UsersModule,
+    UserModule,
     PostModule,
     CommentModule,
     RightsModule,

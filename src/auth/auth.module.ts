@@ -1,7 +1,7 @@
 import {Module} from "@nestjs/common";
 import {JwtModule} from "@nestjs/jwt";
 import {PassportModule} from "@nestjs/passport";
-import {UsersModule} from "../users/users.module";
+import {UserModule} from "../user/user.module";
 import {AuthService} from "./auth.service";
 import {jwtConstants} from "./constants";
 import {JwtStrategy} from "./strategies/jwt.strategy";
@@ -10,7 +10,7 @@ import {CommonModule} from "../common/common.module";
 
 @Module({
   imports: [
-    UsersModule,
+    UserModule,
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
