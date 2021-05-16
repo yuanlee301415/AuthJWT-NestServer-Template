@@ -13,10 +13,10 @@ export class UsersService {
     @Inject(CryptoUtil) private readonly cryptoUtil: CryptoUtil
   ) {}
 
-  async register(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const newUser = new User(createUserDto);
     const ex = await this.findByUsername(newUser.username);
-    console.log("user.service>register>ex:", ex);
+    console.log("user.service>create>ex:", ex);
     if (ex) {
       throw new BadRequestException("用户已存在！");
       return;

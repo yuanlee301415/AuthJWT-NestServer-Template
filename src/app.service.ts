@@ -12,7 +12,7 @@ export class AppService implements OnModuleInit {
     );
     let admin = await this.usersService.findByUsername("admin");
     if (!admin) {
-      admin = await this.usersService.register({
+      admin = await this.usersService.create({
         username: "admin",
         password: "123456",
       });
