@@ -19,15 +19,7 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @UseGuards(LocalAuthGuard)
-  @Post("auth/login")
-  async login(@Req() req): Promise<Resp<Token>> {
-    console.log("AppController>login>req.user:", req.user);
-    return {
-      code: 0,
-      data: await this.authService.login(req.user),
-    };
-  }
+
 
   @UseGuards(JwtAuthGuard)
   @Get("authUser")

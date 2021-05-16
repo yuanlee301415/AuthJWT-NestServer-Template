@@ -10,6 +10,7 @@ import { UsersModule } from "./users/users.module";
 import { PostModule } from "./post/post.module";
 import { CommonModule } from "./common/common.module";
 import { CommentModule } from "./comment/comment.module";
+import { RightsModule } from './rights/rights.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { CommentModule } from "./comment/comment.module";
     UsersModule,
     PostModule,
     CommentModule,
+    RightsModule,
   ],
   controllers: [AppController],
   providers: [
