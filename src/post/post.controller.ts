@@ -60,6 +60,7 @@ export class PostController {
     };
   }
 
+  // Todo: 路由权限
   @UseGuards(JwtAuthGuard)
   @Put(":id")
   async updateOne(
@@ -67,6 +68,7 @@ export class PostController {
     @Param("id") id: string,
     @Body() updatePostDto: UpdatePostDto
   ): Promise<Resp<POST>> {
+    console.log("PostController>updateOne>req.user:\n", req.user);
     console.log("PostController>updateOne>updatePostDto:\n", updatePostDto);
     const updatedPost = await this.postService.updateOne(
       req.user,

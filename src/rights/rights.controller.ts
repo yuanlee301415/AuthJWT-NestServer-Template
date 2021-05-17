@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, Req, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Post, Req, UnauthorizedException, UseGuards} from '@nestjs/common';
 import {LocalAuthGuard} from "../auth/guards/local-auth.guard";
 import {Resp} from "../common/interfaces/Resp";
 import {Token} from "../common/interfaces/Token";
@@ -8,7 +8,7 @@ import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 import {AuthUser} from "../common/interfaces/AuthUser";
 import {CreateUserDto} from "../user/dto/create-user.dto";
 import {User} from "../user/schemas/user.schema";
-
+import RoleEnum from "../user/role.enum";
 
 @Controller('rights')
 export class RightsController {
@@ -24,7 +24,7 @@ export class RightsController {
       "RightsController>register>user>createUserDto:\n",
       createUserDto
     );
-    const data = await this.rightsService.register(createUserDto)
+    const data = await this.rightsService.register({ ...createUserDto, roles: [RoleEnum.Web]/*只能注册前台角色的用户*/ })
     console.log(
       "RightsController>register>data:\n",
       data
@@ -38,8 +38,11 @@ export class RightsController {
 
   @UseGuards(LocalAuthGuard)
   @Post("login")
-  async login(@Req() req): Promise<Resp<Token>> {
+  async login(@Req() req, @Body() body: {username: string, password: string, type: string}): Promise<Resp<Token>> {
     console.log("RightsController>login>req.user:", req.user);
+    console.log("RightsController>login>body:", body);
+    if (!req.user.roles || !req.user.roles.includes(body.type)) throw new UnauthorizedException(); // 无权限
+
     return {
       code: 0,
       data: await this.authService.login(req.user),

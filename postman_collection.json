@@ -540,7 +540,7 @@
 									"urlencoded": [
 										{
 											"key": "username",
-											"value": "admin",
+											"value": "webUser",
 											"type": "text"
 										},
 										{
@@ -549,10 +549,9 @@
 											"type": "text"
 										},
 										{
-											"key": "username",
-											"value": "comment",
-											"type": "text",
-											"disabled": true
+											"key": "type",
+											"value": "web",
+											"type": "text"
 										}
 									]
 								},
@@ -626,6 +625,9 @@
 								"disabledSystemHeaders": {}
 							},
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -638,12 +640,12 @@
 										},
 										{
 											"key": "password",
-											"value": "{{$randomPassword}}",
+											"value": "123456",
 											"type": "text"
 										},
 										{
 											"key": "username",
-											"value": "admin",
+											"value": "postman1",
 											"type": "text",
 											"disabled": true
 										},

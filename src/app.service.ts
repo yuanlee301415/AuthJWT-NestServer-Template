@@ -4,6 +4,7 @@ import {Inject, Injectable, OnModuleInit} from "@nestjs/common";
 import {UserService} from "./user/user.service";
 import {PostService} from "./post/post.service";
 import {CryptoUtil} from "./common/utils/crypto.util";
+import RoleEnum from "./user/role.enum";
 
 @Injectable()
 export class AppService implements OnModuleInit {
@@ -16,11 +17,24 @@ export class AppService implements OnModuleInit {
       admin = await this.userService.create({
         username: "admin",
         password: "123456",
-        roles: ['admin']
+        roles: [RoleEnum.Web, RoleEnum.Admin]
       });
       console.warn(
-        "AppService>onModuleInit>preset>admin:\n",
+        "AppService>onModuleInit>preset>admin user:\n",
         JSON.stringify(admin, null, 2)
+      );
+    }
+
+    let webUser = await this.userService.findByUsername("webUser");
+    if (!webUser) {
+      webUser = await this.userService.create({
+        username: "webUser",
+        password: "123456",
+        roles: [RoleEnum.Web]
+      });
+      console.warn(
+        "AppService>onModuleInit>preset>web user:\n",
+        JSON.stringify(webUser, null, 2)
       );
     }
 

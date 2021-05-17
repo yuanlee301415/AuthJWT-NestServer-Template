@@ -20,7 +20,7 @@ export class User {
 
   @Prop({
     type: Array,
-    required: true,
+    required: true
   })
   roles: string[];
 
