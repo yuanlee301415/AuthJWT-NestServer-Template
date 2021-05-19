@@ -24,7 +24,7 @@ export class LoggingInterceptor implements NestInterceptor {
         console.log(
           `---------------------------------------Done: ${
             Date.now() - now.getTime()
-          }ms---------------------------------------`
+          }ms---------------------------------------\n\n\n\n`
         );
       })
     );

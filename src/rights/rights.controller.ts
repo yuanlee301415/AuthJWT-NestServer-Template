@@ -45,7 +45,9 @@ export class RightsController {
 
     return {
       code: 0,
-      data: await this.authService.login(req.user),
+      data: {
+        access_token: await this.authService.login(req.user)
+      },
     };
   }
 

@@ -29,15 +29,15 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any): Promise<Token> {
+  async login(user: any): Promise<string> {
     console.log("AuthService>login>user:", user);
     const payload: AuthPayload = {
       username: user.username,
       sub: String(user._id),
     };
     console.log("AuthService>login>payload:", payload);
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+    const token = await this.jwtService.sign(payload)
+    console.log("AuthService>login>sign>token:", token);
+    return token
   }
 }
