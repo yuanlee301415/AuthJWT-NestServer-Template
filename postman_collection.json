@@ -241,7 +241,7 @@
 							"response": []
 						},
 						{
-							"name": "post/:id/star",
+							"name": "post/star/:id",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -261,15 +261,15 @@
 									"urlencoded": []
 								},
 								"url": {
-									"raw": "{{url}}/v1/post/{{newPostId}}/star",
+									"raw": "{{url}}/v1/post/star/{{newPostId}}",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"v1",
 										"post",
-										"{{newPostId}}",
-										"star"
+										"star",
+										"{{newPostId}}"
 									]
 								}
 							},
@@ -296,15 +296,15 @@
 									"urlencoded": []
 								},
 								"url": {
-									"raw": "{{url}}/v1/post/{{newPostId}}/unstar",
+									"raw": "{{url}}/v1/post/unstar/{{newPostId}}",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"v1",
 										"post",
-										"{{newPostId}}",
-										"unstar"
+										"unstar",
+										"{{newPostId}}"
 									]
 								}
 							},

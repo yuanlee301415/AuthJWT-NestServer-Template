@@ -16,13 +16,15 @@ export class AuthService {
   }
 
   async validateUser(username: string, password: string): Promise<User> {
+/*
     console.log(
       "AuthService>validateUser>username/password:",
       username,
       password
     );
+*/
     const user = await this.userService.findByUsername(username);
-    console.log("AuthService>validateUser>user:", user);
+    // console.log("AuthService>validateUser>user:", user);
     if (user && this.cryptoUtil.checkPassword(password, user.password)) {
       return user;
     }
@@ -30,14 +32,14 @@ export class AuthService {
   }
 
   async login(user: any): Promise<string> {
-    console.log("AuthService>login>user:", user);
+    // console.log("AuthService>login>user:", user);
     const payload: AuthPayload = {
       username: user.username,
       sub: String(user._id),
     };
-    console.log("AuthService>login>payload:", payload);
+    // console.log("AuthService>login>payload:", payload);
     const token = await this.jwtService.sign(payload)
-    console.log("AuthService>login>sign>token:", token);
+    // console.log("AuthService>login>sign>token:", token);
     return token
   }
 }

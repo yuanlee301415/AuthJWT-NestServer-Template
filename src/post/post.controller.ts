@@ -82,7 +82,7 @@ export class PostController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post(":id/star")
+  @Post("star/:id")
   async star(@Req() req, @Param("id") id: string): Promise<Resp<POST>> {
     const updatedPost = await this.postService.star(req.user, id);
     return {
@@ -92,7 +92,7 @@ export class PostController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post(":id/unstar")
+  @Post("unstar/:id")
   async unstar(@Req() req, @Param("id") id: string): Promise<Resp<POST>> {
     const updatedPost = await this.postService.unstar(req.user, id);
     return {

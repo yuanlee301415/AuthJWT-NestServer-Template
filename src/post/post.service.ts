@@ -1,4 +1,4 @@
-import {Injectable} from "@nestjs/common";
+import {Injectable, NotFoundException} from "@nestjs/common";
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
 import {CreatePostDto} from "./dto/create-post.dto";
@@ -84,7 +84,7 @@ export class PostService {
   async star(authUser: AuthUser, id: string): Promise<Post> {
     const post = await this.findById(id);
     console.log("PostService>>start>post:", post);
-    if (!post) return;
+    if (!post) throw new NotFoundException();
 
     const vote = post.vote + 1;
     console.log("PostService>>start>vote:", vote);
