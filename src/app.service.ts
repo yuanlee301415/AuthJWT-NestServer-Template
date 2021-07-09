@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const pkg = require("../package.json");
 import {Inject, Injectable, OnModuleInit} from "@nestjs/common";
 import {UserService} from "./user/user.service";
 import {PostService} from "./post/post.service";
@@ -68,6 +66,6 @@ export class AppService implements OnModuleInit {
   }
 
   getHello(): string {
-    return `Hello [${pkg.name}]! - ${new Date()}`;
+    return `Hello: [${process.env.NAME}]!`;
   }
 }
